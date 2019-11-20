@@ -21,7 +21,7 @@
         },
         data() {
             return {
-                windowWidth: window.innerWidth
+                windowWidth: window.innerWidth,
             }
         }
     }

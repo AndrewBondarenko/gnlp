@@ -21,33 +21,13 @@
                         </div>
                         <div class="block-one-content">
                             <div class="content-set-item">
-                                <div class="content-item" v-model="item_1" :class="{ contentItemActive: isActive1 }" @click="isActive1 = !isActive1">
-                                    <img src="../assets/images/icon_item.png" alt="">
-                                </div>
-                                <div class="content-item"  v-model="item_2" :class="{ contentItemActive: isActive2 }" @click="isActive2 = !isActive2">
-                                    <img src="../assets/images/icon_item.png" alt="">
-                                </div>
-                                <div class="content-item" v-model="item_3" :class="{ contentItemActive: isActive3 }" @click="isActive3 = !isActive3">
-                                    <img src="../assets/images/icon_item.png" alt="">
-                                </div>
-                                <div class="content-item" v-model="item_4" :class="{ contentItemActive: isActive4 }" @click="isActive4 = !isActive4">
-                                    <img src="../assets/images/icon_item.png" alt="">
-                                </div>
-                                <div class="content-item" v-model="item_5" :class="{ contentItemActive: isActive5 }" @click="isActive5 = !isActive5">
-                                    <img src="../assets/images/icon_item.png" alt="">
-                                </div>
-                                <div class="content-item" v-model="item_6" :class="{ contentItemActive: isActive6 }" @click="isActive6 = !isActive6">
-                                    <img src="../assets/images/icon_item.png" alt="">
-                                </div>
-                                <div class="content-item" v-model="item_7" :class="{ contentItemActive: isActive7 }" @click="isActive7 = !isActive7">
-                                    <img src="../assets/images/icon_item.png" alt="">
-                                </div>
-                                <div class="content-item" v-model="item_8" :class="{ contentItemActive: isActive8 }" @click="isActive8 = !isActive8">
-                                    <img src="../assets/images/icon_item.png" alt="">
-                                </div>
-                                <div class="content-item" v-model="item_9" :class="{ contentItemActive: isActive9 }" @click="isActive9 = !isActive9">
-                                    <img src="../assets/images/icon_item.png" alt="">
-                                </div>
+
+                                <Items
+                                        v-for="item in items"
+                                        v-bind:id="item.id"
+                                        v-bind:name="item.name"
+                                        v-bind:picture="item.picture"
+                                ></Items >
 
                             </div>
                         </div>
@@ -64,7 +44,10 @@
                     <div v-if="step > 0" class="button-back">
                         <button @click="goBackStep">BACK</button>
                     </div>
-                    <div v-if="step > 0 && step <= 1" class="button-next">
+                    <div v-if="step === 1" class="button-next">
+                        <button @click="sumbitItems">NEXT</button>
+                    </div>
+                    <div v-if="step > 0 && step <= 1 && step !== 1" class="button-next">
                         <button @click="goNextStep">NEXT</button>
                     </div>
                 </div>
@@ -75,30 +58,27 @@
 </template>
 
 <script>
+    import Items from '../components/Items'
+
     export default {
         name: "Desktop",
+        components:{
+            Items
+        },
         data(){
             return{
                 step: 0,
-                items: [],
-                isActive1: false,
-                isActive2: false,
-                isActive3: false,
-                isActive4: false,
-                isActive5: false,
-                isActive6: false,
-                isActive7: false,
-                isActive8: false,
-                isActive9: false,
-                item_1: 1,
-                item_2: 2,
-                item_3: 3,
-                item_4: 4,
-                item_5: 5,
-                item_6: 6,
-                item_7: 7,
-                item_8: 8,
-                item_9: 9,
+                items: [
+                    {id: 1, name:'GORGONA1', picture: require('@/assets/images/icon_item.png') },
+                    {id: 2, name:'GORGONA2', picture: require('@/assets/images/icon_item.png') },
+                    {id: 3, name:'GORGONA3', picture: require('@/assets/images/icon_item.png') },
+                    {id: 4, name:'GORGONA4', picture: require('@/assets/images/icon_item.png') },
+                    {id: 5, name:'GORGONA5', picture: require('@/assets/images/icon_item.png') },
+                    {id: 6, name:'GORGONA6', picture: require('@/assets/images/icon_item.png') },
+                    {id: 7, name:'GORGONA7', picture: require('@/assets/images/icon_item.png') },
+                    {id: 8, name:'GORGONA8', picture: require('@/assets/images/icon_item.png') },
+                    {id: 9, name:'GORGONA9', picture: require('@/assets/images/icon_item.png') },
+                ]
             }
         },
         methods: {
@@ -110,6 +90,20 @@
                 this.step = this.step - 1;
                 console.log(this.step)
             },
+            sumbitItems: function() {
+                this.selectedItemsList();
+                this.goNextStep();
+            },
+            selectedItemsList: function () {
+                var x = document.getElementsByClassName("contentItemActive");
+                var array = [];
+                var i;
+                for (i = 0; i < x.length; i++) {
+                    array.push(x[i].id)
+                }
+                console.log(array);
+                return array
+            }
         }
     }
 </script>
@@ -214,9 +208,7 @@
                         padding: 4px
                         box-sizing: border-box
 
-                .contentItemActive
-                    img
-                        border: 2px solid $black
+
 
 
 
