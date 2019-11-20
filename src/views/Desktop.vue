@@ -17,7 +17,7 @@
 
                     <div v-if="step === 1" class="block-one">
                         <div class="block_step">
-                            <h1>Step: 1</h1>
+                            <h1>Select several topics that interest you.</h1>
                         </div>
                         <div class="block-one-content">
                             <div class="content-set-item">
@@ -32,23 +32,21 @@
                             </div>
                         </div>
                     </div>
-                    <div v-if="step === 2" class="block-one">
-                        <div class="block_step">
-                            <h1>Step: 2</h1>
-                        </div>
-                    </div>
+
+                    <!--<div v-if="step === 2" class="block-one">-->
+                        <!--<div class="block_step">-->
+                            <!--<h1>Step: 2</h1>-->
+                        <!--</div>-->
+                    <!--</div>-->
 
                 </div>
 
                 <div class="buttons">
-                    <div v-if="step > 0" class="button-back">
-                        <button @click="goBackStep">BACK</button>
-                    </div>
+                    <!--<div v-if="step > 0 " class="button-back">-->
+                        <!--<button @click="goBackStep">BACK</button>-->
+                    <!--</div>-->
                     <div v-if="step === 1" class="button-next">
-                        <button @click="sumbitItems">NEXT</button>
-                    </div>
-                    <div v-if="step > 0 && step <= 1 && step !== 1" class="button-next">
-                        <button @click="goNextStep">NEXT</button>
+                        <button @click="sumbitItems">SUBMIT</button>
                     </div>
                 </div>
 
@@ -68,6 +66,9 @@
         data(){
             return{
                 step: 0,
+                array: [],
+                isSending: false,
+                isSent: false,
                 items: [
                     {id: 1, name:'GORGONA1', picture: require('@/assets/images/icon_item.png') },
                     {id: 2, name:'GORGONA2', picture: require('@/assets/images/icon_item.png') },
@@ -79,6 +80,13 @@
                     {id: 8, name:'GORGONA8', picture: require('@/assets/images/icon_item.png') },
                     {id: 9, name:'GORGONA9', picture: require('@/assets/images/icon_item.png') },
                 ]
+            }
+        },
+        watch: {
+            isSent: function(){
+                setTimeout(()=>{
+                    this.isSent = false
+                },4000);
             }
         },
         methods: {
@@ -93,17 +101,38 @@
             sumbitItems: function() {
                 this.selectedItemsList();
                 this.goNextStep();
+
             },
             selectedItemsList: function () {
                 var x = document.getElementsByClassName("contentItemActive");
-                var array = [];
+
                 var i;
                 for (i = 0; i < x.length; i++) {
-                    array.push(x[i].id)
+                    this.array.push(x[i].id)
                 }
-                console.log(array);
-                return array
-            }
+                console.log(this.array);
+                return this.array
+            },
+            onSubmit(e) {
+                e.preventDefault();
+                let currentObj = this;
+                this.isSending = true;
+
+                this.axios.post('https://max-yuz.herokuapp.com/feedback', {
+                    itemID: this.array,
+                })
+                    .then(function (response) {
+                        currentObj.output = response.data;
+                        currentObj.isSending = false;
+                        currentObj.isSent = true;
+                        console.log("ok");
+                    })
+                    .catch(function (error) {
+                        currentObj.output = error;
+                        currentObj.isSending = false;
+                        console.log(error);
+                    });
+            },
         }
     }
 </script>
@@ -117,13 +146,17 @@
     body
         color: #303641
 
+    .desktop
+        margin-top: 0
+
     .container
         width: 60%
         height: 85vh
         display: flex
         flex-direction: column
-        margin: 50px auto
+        margin: 0 auto
         background-color: $blue
+        border-radius: 0 0 25px 25px
 
     .block
         width: 100%
@@ -156,6 +189,7 @@
             margin-right: auto
         .button-next
             margin-left: auto
+            margin-right: auto
 
     .block-zero
         width: 100%
