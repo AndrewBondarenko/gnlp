@@ -58,10 +58,12 @@
                                 ></Items >
                             </div>
                         </div>
+
                     </div>
 
                     <div v-if="step === 2" class="block-one">
-                        <h1>WAIT A SECOND PLEASE</h1>
+                        <div v-if="isSending" class="loading">WAIT A SECOND PLEASE</div>
+                        <div v-if="isSent" class="loading">DONE</div>
                     </div>
 
                 </div>
@@ -71,7 +73,7 @@
                         <!--<button @click="goBackStep">BACK</button>-->
                     <!--</div>-->
                     <div v-if="step === 1" class="button-next">
-                        <button @click="sumbitItems">SUBMIT</button>
+                        <button @click="submitItems">SUBMIT</button>
                     </div>
                 </div>
 
@@ -123,8 +125,9 @@
                 this.step = this.step - 1;
                 console.log(this.step)
             },
-            sumbitItems: function() {
+            submitItems: function() {
                 this.selectedItemsList();
+                this.onSubmit();
                 this.goNextStep();
 
             },
@@ -139,12 +142,12 @@
                 console.log(this.array);
                 return this.array
             },
-            onSubmit(e) {
-                e.preventDefault();
+            onSubmit() {
+                // e.preventDefault();
                 let currentObj = this;
                 this.isSending = true;
 
-                this.axios.post('https://max-yuz.herokuapp.com/feedback', {
+                this.axios.post('http://gorgonas.ml/api/categories', {
                     itemID: this.array,
                 })
                     .then(function (response) {
@@ -225,7 +228,7 @@
         height: 90vh
         display: flex
         flex-direction: column
-        margin: 35px auto
+        margin: 35px auto 35px 380px
         background-color: $set_white
         border-radius: 25px
 
