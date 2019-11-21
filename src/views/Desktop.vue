@@ -44,24 +44,20 @@
                             <h1>Select several topics that interest you.</h1>
                         </div>
                         <div class="block-one-content">
-                            <div class="content-set-item">
-
+                            <div class="content-set-item" @click="selectedItemsList">
                                 <Items
                                         v-for="item in items"
                                         v-bind:id="item.id"
                                         v-bind:name="item.name"
                                         v-bind:picture="item.picture"
                                 ></Items >
-
                             </div>
                         </div>
                     </div>
 
-                    <!--<div v-if="step === 2" class="block-one">-->
-                        <!--<div class="block_title">-->
-                            <!--<h1>Step: 2</h1>-->
-                        <!--</div>-->
-                    <!--</div>-->
+                    <div v-if="step === 2" class="block-one">
+                        <h1>WAIT A SECOND PLEASE</h1>
+                    </div>
 
                 </div>
 
@@ -129,6 +125,7 @@
             },
             selectedItemsList: function () {
                 var x = document.getElementsByClassName("contentItemActive");
+                this.array = [];
 
                 var i;
                 for (i = 0; i < x.length; i++) {
@@ -283,7 +280,7 @@
                         margin-top: 32px
                         color: $set_white
                         h1
-                            padding: 5px 15px
+                            padding: 5px 20px
                             margin-top: -7px
             .welcome-button
                 button
