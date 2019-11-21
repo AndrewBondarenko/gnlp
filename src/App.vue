@@ -9,9 +9,8 @@
 
   body
     margin: 0
-    /*background-color: #10100e*/
-    background-color: whitesmoke
-
+    /*background-color: #f8f8f5*/
+    background-color: #c1dee7
   #app
     font-family: 'Barlow Semi Condensed', sans-serif
     -webkit-font-smoothing: antialiased

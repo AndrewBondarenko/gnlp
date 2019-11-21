@@ -61,7 +61,9 @@
                     margin: -10px 10px 0 10px
 
     .contentItemActive
-        border: 2px solid $black
+
+        background-color:  #ffe884
+        border-radius: 15px
         box-sizing: border-box
         .content-item-img
             img

@@ -1,13 +1,37 @@
 <template>
     <div>
         <div class="desktop">
+
+            <div class="desktop_left_gorgona">
+                <h1>gorGOna</h1>
+            </div>
+
+            <div class="desktop_left_bar">
+                <ul>
+                    <li v-for="item in array">
+                        {{ items[item-1].name }}
+                    </li>
+                </ul>
+
+            </div>
+
             <div class="container">
                 <div class="block">
 
                     <div v-if="step === 0" class="block-zero">
+                        <div class="block_title">
+                            <h1>WELCOME</h1>
+                        </div>
                         <div class="welcome">
                             <div class="welcome-text">
-                                <h1>WELCOME</h1>
+                                <div class="welcome-text-description">
+                                    <h1>WE</h1>
+                                    <div class="gorgona">
+                                        <h1>gorGOna</h1>
+                                    </div>
+                                    <h1>FAMILY!</h1>
+                                </div>
+                                <h1>ENJOY</h1>
                             </div>
                             <div class="welcome-button">
                                 <button @click="step = 1">START</button>
@@ -16,7 +40,7 @@
                     </div>
 
                     <div v-if="step === 1" class="block-one">
-                        <div class="block_step">
+                        <div class="block_title">
                             <h1>Select several topics that interest you.</h1>
                         </div>
                         <div class="block-one-content">
@@ -34,7 +58,7 @@
                     </div>
 
                     <!--<div v-if="step === 2" class="block-one">-->
-                        <!--<div class="block_step">-->
+                        <!--<div class="block_title">-->
                             <!--<h1>Step: 2</h1>-->
                         <!--</div>-->
                     <!--</div>-->
@@ -143,29 +167,73 @@
     $dark_blue: #7CBBE9
     $black: #303641
 
+
+    $set_yellow: #ffe884
+    $set_blue: #b2ceff
+    $set_green: #8da751
+    $set_lite_green: #55b8ae
+    $set_pink: #eccee2
+    $set_dark_blue: #00a3e1
+    $set_black: #373933
+    $set_gray: #c1dee7
+    $set_white: #f8f8f5
+
     body
-        color: #303641
+        color: $set_black
 
     .desktop
         margin-top: 0
+        background-color: $set_gray
+
+    .desktop_left_gorgona
+        position: absolute
+        left: 25px
+        top: 10px
+        height: 40px
+        width: 200px
+        padding: 5px 15px
+        background-color: $set_lite_green
+        color: $set_white
+        border-radius: 20px
+        h1
+            margin: -2px 10px 0 10px
+
+    .desktop_left_bar
+        position: absolute
+        display: flex
+        flex-direction: column
+        left: 70px
+        top: 75px
+        ul
+            padding: 0
+        li
+            display: flex
+            margin: 10px 0
+            width: 200px
+            background-color: $set_yellow
+            border-radius: 20px
+            padding: 10px 15px
 
     .container
         width: 60%
-        height: 85vh
+        height: 90vh
         display: flex
         flex-direction: column
-        margin: 0 auto
-        background-color: $blue
-        border-radius: 0 0 25px 25px
+        margin: 35px auto
+        background-color: $set_white
+        border-radius: 25px
 
     .block
         width: 100%
         height: 100%
 
-    .block_step
+    .block_title
         width: max-content
         display: flex
-        margin: 25px auto 25px 50px
+        margin: 25px auto 25px -50px
+        padding: 0 20px
+        background-color: $set_blue
+        border-radius: 20px
 
     .buttons
         display: flex
@@ -174,16 +242,17 @@
         margin: auto
         height: 100px
         button
-            width: 150px
-            height: 35px
+            width: 200px
+            height: 45px
             background: none
-            border: 2px solid $black
-            color: $black
+            border: 2px solid $set_black
+            color: $set_black
             font-weight: 600
             cursor: pointer
             outline: none
+            border-radius: 25px
             &:hover
-                background: $black
+                background: $set_black
                 color: whitesmoke
         .button-back
             margin-right: auto
@@ -197,19 +266,36 @@
         .welcome
             display: flex
             flex-direction: column
-            margin: 100px auto
+            margin: 50px auto
             .welcome-text
                 margin-bottom: 50px
+                .welcome-text-description
+                    display: flex
+                    flex-direction: row
+                    width: max-content
+                    margin: 50px auto 0 auto
+                    h1
+                        padding: 10px
+                    .gorgona
+                        background-color: $set_lite_green
+                        border-radius: 20px
+                        height: 40px
+                        margin-top: 32px
+                        color: $set_white
+                        h1
+                            padding: 5px 15px
+                            margin-top: -7px
             .welcome-button
                 button
-                    width: 150px
-                    height: 35px
+                    width: 200px
+                    height: 45px
                     background: none
                     border: 2px solid $black
                     color: $black
                     font-weight: 600
                     cursor: pointer
                     outline: none
+                    border-radius: 25px
                     &:hover
                         background: $black
                         color: whitesmoke
