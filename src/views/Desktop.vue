@@ -7,12 +7,17 @@
             </div>
 
             <div class="desktop_left_bar">
+                <div v-if="array.length === 1" class="desktop_left_bar_title">
+                    <h2>YOUR CATEGORY</h2>
+                </div>
+                <div v-if="array.length > 1" class="desktop_left_bar_title">
+                    <h2>YOUR CATEGORIES</h2>
+                </div>
                 <ul>
                     <li v-for="item in array">
                         {{ items[item-1].name }}
                     </li>
                 </ul>
-
             </div>
 
             <div class="container">
@@ -20,18 +25,18 @@
 
                     <div v-if="step === 0" class="block-zero">
                         <div class="block_title">
-                            <h1>WELCOME</h1>
+                            <h1>WELCOME TO THE FAMILY</h1>
                         </div>
                         <div class="welcome">
                             <div class="welcome-text">
                                 <div class="welcome-text-description">
-                                    <h1>WE</h1>
+                                    <h1>WE ARE</h1>
                                     <div class="gorgona">
                                         <h1>gorGOna</h1>
                                     </div>
-                                    <h1>FAMILY!</h1>
+                                    <h1>FAMILY</h1>
                                 </div>
-                                <h1>ENJOY</h1>
+                                <h1>ENJOY!</h1>
                             </div>
                             <div class="welcome-button">
                                 <button @click="step = 1">START</button>
@@ -203,6 +208,7 @@
         top: 75px
         ul
             padding: 0
+            margin-top: 5px
         li
             display: flex
             margin: 10px 0
@@ -210,6 +216,9 @@
             background-color: $set_yellow
             border-radius: 20px
             padding: 10px 15px
+        .desktop_left_bar_title
+            h2
+                margin-bottom: 0
 
     .container
         width: 60%
