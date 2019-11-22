@@ -7,6 +7,9 @@
             </div>
 
             <div class="desktop_left_bar">
+                <div v-if="array.length === 0 && step > 1" class="desktop_left_bar_title">
+                    <h2>PLEASE, ADD CATEGORY</h2>
+                </div>
                 <div v-if="array.length === 1" class="desktop_left_bar_title">
                     <h2>YOUR CATEGORY</h2>
                 </div>
@@ -16,8 +19,14 @@
                 <ul>
                     <li v-for="item in array">
                         {{ items[item-1].name }}
+                        <div v-if="step !== 1" class="item_close_button" >
+                            <img  @click="deleteItemFromLeftList(items[item-1].id)" src="../assets/images/close_button.png" alt="close">
+                        </div>
                     </li>
                 </ul>
+                <div v-if="step > 1" class="item_add_button">
+                    <button @click="addCategory">ADD CATEGORY</button>
+                </div>
             </div>
 
             <div class="container">
@@ -58,12 +67,30 @@
                                 ></Items >
                             </div>
                         </div>
-
                     </div>
 
+                    <!--<div v-if="step === 'addItems'" class="block-one">-->
+                        <!--<div class="block_title">-->
+                            <!--<h1>Select several topics that interest you.</h1>-->
+                        <!--</div>-->
+                        <!--<div class="block-one-content">-->
+                            <!--<div class="content-set-item" @click="selectedItemsList">-->
+                                <!--<Items-->
+                                        <!--v-for="item in addItemArray"-->
+                                        <!--v-bind:id="item.id"-->
+                                        <!--v-bind:name="item.name"-->
+                                        <!--v-bind:picture="item.picture"-->
+                                <!--&gt;</Items >-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
                     <div v-if="step === 2" class="block-one">
-                        <div v-if="isSending" class="loading">WAIT A SECOND PLEASE</div>
-                        <div v-if="isSent" class="loading">DONE</div>
+                        <!--<div v-if="isSending" class="loading">WAIT A SECOND PLEASE</div>-->
+                        <!--<div v-if="isSent" class="loading">DONE</div>-->
+
+                        <h1>YOUR TOPICS</h1>
+
                     </div>
 
                 </div>
@@ -94,6 +121,7 @@
             return{
                 step: 0,
                 array: [],
+                addItemArray: [],
                 isSending: false,
                 isSent: false,
                 items: [
@@ -142,6 +170,34 @@
                 console.log(this.array);
                 return this.array
             },
+            deleteItemFromLeftList: function(val) {
+                var value = val.toString();
+                var index = this.array.indexOf(value);
+
+                // console.log("value -", value);
+                // console.log("index -", index);
+
+                if (index !== -1) {
+                    return this.array.splice(index, 1);
+                }
+
+            },
+            addCategory: function() {
+                // var i;
+                // var j;
+                // // this.addItemArray = this.items.slice(0);
+                //
+                // for (i = 0; i < this.items.length; i++){
+                //     for (j = 0; j < this.array.length; j++){
+                //         if (this.items[i].id !== this.array[j]){
+                //             this.addItemArray.push(this.items[i])
+                //         }
+                //     }
+                // }
+
+                this.step = 1;
+            },
+
             onSubmit() {
                 // e.preventDefault();
                 let currentObj = this;
@@ -212,16 +268,51 @@
         ul
             padding: 0
             margin-top: 5px
+            margin-bottom: 5px
         li
             display: flex
+            flex-direction: row
+            justify-content: space-between
             margin: 10px 0
             width: 200px
+            height: 20px
             background-color: $set_yellow
             border-radius: 20px
             padding: 10px 15px
+            cursor: pointer
+
         .desktop_left_bar_title
             h2
                 margin-bottom: 0
+
+        li:hover .item_close_button
+            display: block
+
+        .item_close_button
+            height: 20px
+            width: 20px
+            display: none
+            margin-right: -5px
+            img
+                height: 20px
+                width: 20px
+                margin: auto
+
+        .item_add_button
+            button
+                width: 230px
+                height: 40px
+                background: none
+                border: 2px solid $set_black
+                color: $set_black
+                font-weight: 600
+                cursor: pointer
+                outline: none
+                border-radius: 25px
+                &:hover
+                    background: $set_black
+                    color: whitesmoke
+
 
     .container
         width: 60%
@@ -264,6 +355,7 @@
                 background: $set_black
                 color: whitesmoke
         .button-back
+            margin-left: auto
             margin-right: auto
         .button-next
             margin-left: auto
